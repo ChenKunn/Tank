@@ -31,6 +31,7 @@ public class BagManger : MonoBehaviour
     {
         //更新背包中的道具数量
         ToolNum.text = sql.GetNumByID(playerid, "4");
+        //wtf
         ShieldNum.text = sql.GetNumByID(playerid, "3");
         MoneyNum.text = sql.GetNumByID(playerid, "2");
         BulletNum.text = sql.GetNumByID(playerid, "1");
