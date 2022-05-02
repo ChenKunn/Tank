@@ -29,6 +29,7 @@ public class BagManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //更新背包中的道具数量
         ToolNum.text = sql.GetNumByID(playerid, "4");
         ShieldNum.text = sql.GetNumByID(playerid, "3");
         MoneyNum.text = sql.GetNumByID(playerid, "2");
