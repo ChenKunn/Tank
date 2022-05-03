@@ -8,6 +8,9 @@ public class SaveData : MonoBehaviour
     public static SaveData Instance;
 
     public string playerid;
+    public int health;
+    public int shield;
+    public int attack;
 
     private void Awake() 
     {

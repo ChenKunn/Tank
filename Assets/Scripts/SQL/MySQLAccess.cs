@@ -104,9 +104,32 @@ public class SqlAccess
 		return null;
 	}
 	
-	public void DeleteItemByID(string itemid)
+	public void UpdateItemByID(string num, string playerid, string itemid)
     {
-		string sql = "UPDATE ";
+		string sql = "UPDATE hold SET num = " + num + " WHERE itemid = " + itemid + " AND playerid = " + playerid;
+		ExecuteQuery(sql);
+    }
+
+	public string SelectFromItems(string Col, string itemid)
+    {
+		string sql = "SELECT " + Col + " FROM items WHERE itemid = " + itemid;
+		DataSet ds = ExecuteQuery(sql);
+		if(ds != null)
+        {
+			return GetString(ds);
+        }
+		return null;
+    }
+
+	public string GetPrice(string itemid)
+    {
+		string sql = "SELECT price FROM shop WHERE itemid = " + itemid;
+		DataSet ds = ExecuteQuery(sql);
+		if(ds != null)
+        {
+			return GetString(ds);
+        }
+		return null;
     }
 	public string GetString(DataSet _ds)
 	{

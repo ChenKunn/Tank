@@ -27,15 +27,18 @@ public class LoginManger : MonoBehaviour
         //连接数据库
         sql = new SqlAccess();
         IsLogin = false;
+
         //登录按钮监听
         LoginButton.onClick.AddListener(()=>{
             Login();//登录
         });
+
         //注册按钮监听
         RegisterButton.onClick.AddListener(()=>{
             Register();
         });
 
+        //开始按钮监听
         StartButton.onClick.AddListener(()=>{
             StartGame();
         });
