@@ -99,6 +99,8 @@ public class BagManger : MonoBehaviour
         /*
             ItemUse(SelectItemID);
          */
+        UseItem use = new UseItem();
+        use.UsebyID(SelectItemID);
         Delete();
     }
 

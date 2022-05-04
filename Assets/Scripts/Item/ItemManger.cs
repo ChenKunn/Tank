@@ -1,17 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class MainItemManger : MonoBehaviour
-{
-    // Start is called before the first frame update
-    public Text BulletNum;
-    public Text ShieldNum;
-    public Text ToolNum;
 
+public class ItemManger : MonoBehaviour
+{
     private UseItem use;
     private SqlAccess sql;
     private string playerid;
+    // Start is called before the first frame update
     void Start()
     {
         use = new UseItem();
@@ -22,10 +18,6 @@ public class MainItemManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BulletNum.text = sql.GetNumByID(playerid, "1");
-        ShieldNum.text = sql.GetNumByID(playerid, "3");
-        ToolNum.text = sql.GetNumByID(playerid, "4");
-
         if (Input.GetKeyDown(KeyCode.J))
         {
             use.UsebyID(1);

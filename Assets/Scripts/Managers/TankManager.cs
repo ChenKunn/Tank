@@ -14,6 +14,7 @@ public class TankManager
 
     private TankMovement m_Movement;       
     private TankShooting m_Shooting;
+    private TankHealth m_Health;
     private GameObject m_CanvasGameObject;
 
 
@@ -21,6 +22,8 @@ public class TankManager
     {
         m_Movement = m_Instance.GetComponent<TankMovement>();
         m_Shooting = m_Instance.GetComponent<TankShooting>();
+        m_Health = m_Instance.GetComponent<TankHealth>();
+
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         m_Movement.m_PlayerNumber = m_PlayerNumber;
@@ -36,6 +39,28 @@ public class TankManager
         }
     }
 
+    public void AddHealth()
+    {
+        m_Health.Health = 20;
+    }
+
+    public void AddAttack()
+    {
+        m_Shooting.Attack = 10;
+    }
+
+    public void CancleAttack()
+    {
+        m_Shooting.Attack = 0;
+    }
+    public void AddShield()
+    {
+        m_Health.Shield = 30f;
+    }
+    public void CancleShield()
+    {
+        m_Health.Shield = 0;
+    }
 
     public void DisableControl()
     {
