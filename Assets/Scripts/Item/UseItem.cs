@@ -6,27 +6,33 @@ public class UseItem
     private int AttackTime;
     private int ShieldTime;
 
-
-
-    // Start is called before the first frame update
-    void Setup()
+    public void UsebyID(int id)
     {
-
-        AttackTime = 0;
-        ShieldTime = 0;
+        if(id == 1)
+        {
+            UseBullet();
+        }
+        if(id == 3)
+        {
+            UseShield();
+        }
+        if(id == 4)
+        {
+            UseTool();
+        }
     }
-
-    void UseTool()
+    private void UseTool()
     {
         SaveData.Instance.health = 20;
+
     }
 
-    void UseBullet()
+    private void UseBullet()
     {
         SaveData.Instance.attack = 10;
     }
 
-    void UseShield()
+    private void UseShield()
     {
         SaveData.Instance.shield = 30;
     }

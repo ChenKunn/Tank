@@ -20,7 +20,7 @@ public class TankShooting : MonoBehaviour
     private float m_ChargeSpeed;         
     private bool m_Fired;                
 
-
+    [HideInInspector] public int Attack;
     private void OnEnable()
     {
         m_CurrentLaunchForce = m_MinLaunchForce;
@@ -72,7 +72,7 @@ public class TankShooting : MonoBehaviour
         m_Fired = true;
         Rigidbody shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
         
-        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward;
+        shellInstance.velocity = (m_CurrentLaunchForce + Attack) * m_FireTransform.forward;
 
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();

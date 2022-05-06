@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     private TankManager m_RoundWinner;
     private TankManager m_GameWinner;
     private TankEnemyManger m_EnemyRoundWinner;
-    private TankEnemyManger m_EnemyGameWinner;       
-
-
+    private TankEnemyManger m_EnemyGameWinner;
+    private float ShieldTime;
+    private float AttackTime;
+    private SqlAccess sql;
+    private string playid;
     const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
 
     private void Start()
@@ -35,6 +37,11 @@ public class GameManager : MonoBehaviour
         
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
+        sql = new SqlAccess();
+
+        ShieldTime = 10f;
+        AttackTime = 10f;
+        playid = SaveData.Instance.playerid;
 
         SpawnAllTanks();
         SetCameraTargets();
@@ -42,6 +49,59 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+    private void Update()
+    {
+        if(SaveData.Instance.health > 0)
+        {
+            if (m_Tanks[0] != null)
+            {
+                m_Tanks[0].AddHealth();
+                SaveData.Instance.health = 0;
+            }
+        }
+
+        if(SaveData.Instance.shield > 0)
+        {
+            if(m_Tanks[0] != null)
+            {
+                if (ShieldTime == 10f)
+                {
+                    //加护盾
+                    m_Tanks[0].AddShield();
+                } 
+
+                if (ShieldTime <= 0f)
+                {
+                    //撤护盾
+                    m_Tanks[0].CancleShield();
+                    ShieldTime = 10f;
+                    SaveData.Instance.shield = 0;
+                }
+                ShieldTime -= Time.deltaTime;
+            }
+        }
+
+        if(SaveData.Instance.attack > 0)
+        {
+            if (m_Tanks[0] != null)
+            {
+                if (AttackTime == 10f)
+                {
+                    //加攻击
+                    m_Tanks[0].AddAttack();
+                }
+                if(AttackTime <= 0f)
+                {
+                    //减攻击
+                    m_Tanks[0].CancleAttack();
+                    AttackTime = 10f;
+                    SaveData.Instance.attack = 0;
+                }
+
+               AttackTime -= Time.deltaTime;
+            }
+        }
+    }
 
     private void SpawnAllTanks()
     {
@@ -138,9 +198,13 @@ public class GameManager : MonoBehaviour
         else
            m_EnemyRoundWinner = GetEnemyRoundWinner();
 
+
         if(m_RoundWinner != null)
+        {
             m_RoundWinner.m_Wins++;
-        
+            AddMoney();
+        }
+
         if(m_EnemyRoundWinner != null)
             m_EnemyRoundWinner.m_Wins++;
 
@@ -148,6 +212,8 @@ public class GameManager : MonoBehaviour
         m_EnemyRoundWinner = GetEnemyGameWinner();
 
         string message = EndMessage();
+
+        //Debug.Log(message);
         m_MessageText.text = message;
         
         yield return m_EndWait;
@@ -299,5 +365,14 @@ public class GameManager : MonoBehaviour
         {
             m_TankEnemys[i].DisableControl();
         }
+    }
+
+    private void AddMoney()
+    {
+        int money;
+        int.TryParse(sql.GetNumByID(playid, "2"), out money);
+        //Debug.Log(money);
+        money += 10;
+        sql.UpdateItemByID(money.ToString(), playid, "2");
     }
 }
