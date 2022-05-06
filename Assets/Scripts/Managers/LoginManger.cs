@@ -56,8 +56,8 @@ public class LoginManger : MonoBehaviour
     private void Login(){
         string ps = sql.GetItemByNum("password", InputAccount.text);
         string name = sql.GetItemByNum("name", InputAccount.text);
-        if(ps != null){
-            SaveData.Instance.playerid =sql.GetIdByNum(InputAccount.text);
+        if(ps != null || ps != InputPassword.text){
+            SaveData.Instance.playerid = sql.GetIdByNum(InputAccount.text);
             UserNameText.text = name;
             IsLogin = true;
             LoginCanvas.SetActive(false);
