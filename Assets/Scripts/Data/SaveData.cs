@@ -12,6 +12,11 @@ public class SaveData : MonoBehaviour
     public int shield;
     public int attack;
 
+    public float AIHealth;
+    public int AIAddHp;
+    public int ToolNum;
+    public bool playerdie;
+    public Transform player;
     private void Awake() 
     {
         if(Instance == null)

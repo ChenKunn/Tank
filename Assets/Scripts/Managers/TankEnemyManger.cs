@@ -12,10 +12,10 @@ public class TankEnemyManger
     [HideInInspector] public GameObject m_Instance;          
     [HideInInspector] public int m_Wins;    
     [HideInInspector] public Transform m_Player;                
-
     private PathFinding m_pathfinding;
     //private TankMovement m_Movement;       
     //private TankShooting m_Shooting;
+    private TankHealth m_Health;
     private GameObject m_CanvasGameObject;
 
 
@@ -23,6 +23,7 @@ public class TankEnemyManger
     {
         //m_Movement = m_Instance.GetComponent<TankMovement>();
         //m_Shooting = m_Instance.GetComponent<TankShooting>();
+        m_Health = m_Instance.GetComponent<TankHealth>();
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         // m_Movement.m_PlayerNumber = m_PlayerNumber;
@@ -64,5 +65,12 @@ public class TankEnemyManger
 
         m_Instance.SetActive(false);
         m_Instance.SetActive(true);
+    }
+    public float GetHP(){
+        return m_Health.GetCurrentHp();
+    }
+
+    public void AddHp(){
+        m_Health.Health = 20;
     }
 }

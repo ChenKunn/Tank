@@ -9,8 +9,8 @@ public class MyGrid
 
     public Transform StartPos;
     public LayerMask WallMask;
-    public Vector2 GridSize;
-    public float GridRadius;
+    private Vector2 GridSize;
+    private float GridRadius;
     public float Dis;
     Node[,] OneGrid;
     public List<Node> FindPath;
@@ -19,6 +19,9 @@ public class MyGrid
 
     public void SetUp()
     {
+        GridSize.x = 100;
+        GridSize.y = 100;
+        GridRadius = 1f;
         GridDiameter = GridRadius * 2;
 
         GridX = Mathf.RoundToInt(GridSize.x / GridDiameter);

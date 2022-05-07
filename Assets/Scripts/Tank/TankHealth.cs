@@ -95,4 +95,15 @@ public class TankHealth : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    public float GetCurrentHp()
+    {
+        return m_CurrentHealth;
+    }
+
+    public void AddHp()
+    {
+        
+    }
+
 }

@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(m_Tanks[0] != null)
+        {
+            SaveData.Instance.player = m_Tanks[0].m_Instance.GetComponent<Transform>();
+        }
         if(SaveData.Instance.health > 0)
         {
             if (m_Tanks[0] != null)
@@ -101,6 +105,17 @@ public class GameManager : MonoBehaviour
                AttackTime -= Time.deltaTime;
             }
         }
+
+        if(SaveData.Instance.AIAddHp > 0)
+        {
+            if(m_TankEnemys[0] != null)
+            {
+                m_TankEnemys[0].AddHp();
+                SaveData.Instance.AIAddHp = 0;
+            }
+        }
+        SaveData.Instance.playerdie = OneTankLeft();
+        SaveData.Instance.AIHealth = m_TankEnemys[0].GetHP();
     }
 
     private void SpawnAllTanks()
@@ -109,6 +124,7 @@ public class GameManager : MonoBehaviour
         {
             m_Tanks[i].m_Instance =
                 Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
+            SaveData.Instance.player = m_Tanks[i].m_Instance.GetComponent<Transform>();
             m_Tanks[i].m_PlayerNumber = i + 1;
             m_Tanks[i].Setup();
         }
@@ -166,7 +182,7 @@ public class GameManager : MonoBehaviour
         m_CameraControl.SetStartPositionAndSize();
         m_RoundNumber++;
         m_MessageText.text = "ROUND " + m_RoundNumber;
-
+        SaveData.Instance.ToolNum = 2;
         yield return m_StartWait;
     }
 
