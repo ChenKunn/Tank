@@ -35,7 +35,8 @@ public class MyGrid
         for (int i = 0; i < GridX; i++)
             for (int j = 0; j < GridY; j++)
             {
-                Vector3 worldPoint = BottomLeft + Vector3.right * (i * GridDiameter + GridRadius) + Vector3.forward * (j * GridDiameter + GridRadius);
+                Vector3 worldPoint = BottomLeft + Vector3.right * (i * GridDiameter + GridRadius);
+                worldPoint += Vector3.forward * (j * GridDiameter + GridRadius);
                 bool IsOneWall = true;
                 if(Physics.CheckSphere(worldPoint, GridRadius, WallMask))
                 {
